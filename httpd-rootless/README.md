@@ -6,7 +6,7 @@ an arbitrary UID/GID. Advantages over the stock image include:
     resources such as the NERSC Global Filesystem
   * Allows us to drop all remaining Linux capabilities through `cap_drop: ALL`
     to improve security.
-  * Avoids the need for `RUN groupadd ... && useradd ...`[1], which would
+  * Avoids the need for [`RUN groupadd ... && useradd ...`][1], which would
     result in every single user building their own custom container instead.
 
 Run this image this using `docker container run`, like :
