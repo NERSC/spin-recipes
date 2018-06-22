@@ -1,19 +1,21 @@
 # httpd-rootless
 
 The `httpd-rootless` container extends the stock Apache httpd image to run as
-an arbitrary UID/GID. Advantages over the stock image include:
+an arbitrary UID/GID.
+
+Advantages over the stock image include:
   * Allows a regular user to run a httpd container and access host or NFS
-    resources such as the NERSC Global Filesystem
-  * Allows us to drop all remaining Linux capabilities through `cap_drop: ALL`
-    to improve security.
+    resources such as the NERSC Global Filesystem.
+  * Allows us to drop all remaining Linux capabilities through `cap_drop: ALL`,
+    which avoids many root-level privileges and improves security. 
   * Avoids the need for [`RUN groupadd ... && useradd ...`][1], which would
     result in every single user building their own custom container instead.
 
-Run this image this using `docker container run`, like :
+Run this image this using `docker container run`, like:
 
     docker container run -p 80:8080 --user SOMEUID:SOMEGID --group-add www-data ...
 
-Or, run this image as root by excluding the `--user` & `--group_add` flags:
+Or, run this image as root by not using the `--user` & `--group_add` flags:
 
     docker container run -p 80:8080 ...
 
