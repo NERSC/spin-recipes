@@ -1,0 +1,57 @@
+#
+# substitute your stack name for mysql-root throughout
+#
+
+version: '2'
+
+services:
+    db:
+        image: mysql:5.7
+
+        # uncomment only if access outside of Spin is needed
+        #ports:
+        #    - 3306:3306/tcp
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+            - db.mysql-root:/var/lib/mysql
+
+        # substitute the account name to be used to access the database below
+        environment:
+            MYSQL_USER: MySQLUser
+            MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+            MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+
+        cap_drop:
+            - ALL
+        cap_add:
+            - CHOWN
+            - DAC_OVERRIDE
+            - FOWNER
+            - SETGID
+            - SETUID
+
+        secrets:
+            - mode: '0444'
+              uid: '0'
+              gid: '0'
+              source: db.mysql-recipe.mysql_password
+              target: mysql_password
+
+        labels:
+            io.rancher.container.pull_image: always
+
+#
+# note: secrets and volumes must have been created manually
+#
+
+secrets:
+    db.mysql-recipe.mysql_password:
+        external: true
+
+volumes:
+    db.mysql-recipe:
+        driver: rancher-nfs
+        external: true

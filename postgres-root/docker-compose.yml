@@ -1,0 +1,65 @@
+#
+# substitute your stack name for postgres-root throughout
+#
+
+version: '2'
+
+services:
+    db:
+        image: postgres:10-alpine
+
+        # uncomment only if access outside of Spin is needed
+        #ports:
+        #    - 5432:5432/tcp
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+            - db.postgres-root:/var/lib/postgresql/data
+
+        # substitute the account name to be used to access the database below
+        environment:
+            POSTGRES_USER: PostgresUser
+            POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+
+        cap_drop:
+            - ALL
+        cap_add:
+            - CHOWN
+            - DAC_OVERRIDE
+            - FOWNER
+            - SETGID
+            - SETUID
+
+        secrets:
+            - mode: '0444'
+              uid: '0'
+              gid: '0'
+              source: db.postgres-root.postgres_password
+              target: postgres_password
+
+        # uncomment to set configuration options as needed
+        # (this is cleaner than creating your own image with a custom config file)
+        #command:
+        #    - postgres
+        #    - -c
+        #    - max_connections=100
+        #    - -c
+        #    - shared_buffers=32MB
+
+        labels:
+            io.rancher.container.pull_image: always
+
+#
+# note: secrets and volumes must have been created manually
+#
+
+secrets:
+    db.postgres-root.postgres_password:
+        external: true
+
+volumes:
+    db.postgres-root:
+        driver: rancher-nfs
+        external: true
