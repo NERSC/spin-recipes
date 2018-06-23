@@ -1,4 +1,4 @@
-# Run the 'httpd-rootless' container as an arbirary UID/GID
+# Run the 'httpd-rootless' container as an arbirary UID & GID.
 # Be sure that the image name matches your httpd image name,
 # and replace YourUserID:YourGroupID with your own UserID & GroupID.
 version: '2'
