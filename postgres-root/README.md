@@ -8,7 +8,7 @@ Features of this recipe:
   * Optional direct access vi SQL monitor from within NERSC networks.
   * Custom configuration options supplied through runtime arguments, avoiding the
     need to create (and maintain) a custom image.
-  * Health checking and automatic reschedulig in the event of problems.
+  * Health checking and automatic rescheduling in the event of problems.
   * Enhanced security through a reduced set of capabilities.
 
 To use this recipe, incorporate it into your `docker-compose.yml` and `rancher-compose.yml`,
