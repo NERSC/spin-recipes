@@ -13,11 +13,11 @@ Advantages over the stock image include:
 
 Run this image this using `docker container run`, like:
 
-    docker container run -p 80:8080 --user SOMEUID:SOMEGID --group-add www-data ...
+    docker container run -p 80:8080 --cap-drop=all --user SOMEUID:SOMEGID --group-add www-data ... httpd-rootless
 
 Or, run this image as root by not using the `--user` & `--group_add` flags:
 
-    docker container run -p 80:8080 ...
+    docker container run -p 80:8080 ... httpd-rootless
 
 Or, run with the Docker Compose equivalent (see the accompanying `docker-compose.yml` file).
 
