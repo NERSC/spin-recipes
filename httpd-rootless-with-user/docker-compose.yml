@@ -1,0 +1,15 @@
+# Run the 'httpd-rootless' container as an alternate user.
+# Be sure that the image name matches your httpd image name,
+# and replace YourUserID:YourGroupID with your own UserID & GroupID.
+version: '2'
+services:
+  web:
+    image: httpd-rootless-with-user:user-and-group
+    ports:
+    - 80:8080
+    user: YourUserID:YourGroupID
+    # Also add www-data as a supplementary group
+    group_add:
+    - www-data
+    cap_drop:
+    - ALL
