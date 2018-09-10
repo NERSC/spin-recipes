@@ -1,6 +1,7 @@
 # postgres-root
 
-This recipe shows a working example of Postgres on Spin using the official managed image.
+This recipe shows a working example of Postgres on Spin using the official managed image
+with an automated backup routine.
 
 Features of this recipe:
   * Persistent storage on Rancher NFS.
@@ -12,4 +13,4 @@ Features of this recipe:
   * Enhanced security through a reduced set of capabilities.
 
 To use this recipe, incorporate it into your `docker-compose.yml` and `rancher-compose.yml`,
-substituting the name of your stack for `postgres-root` and the database username of your choice.
+substituting the appropriate values as described in the comments.

@@ -12,3 +12,6 @@ services:
             interval: 2000
             strategy: recreate
             reinitializing_timeout: 60000
+    db-dump:
+        scale: 1
+        start_on_create: false

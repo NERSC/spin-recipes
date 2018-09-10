@@ -1,6 +1,11 @@
 #
-# substitute your stack name for postgres-root throughout
+# to use this template, substitute the following throughout:
 #
+# - for postgres-root: your stack name
+# - for PostgresUser: your Postgres user name
+# - for ProjectDir: your global file system project directory
+# - for UserID: your numeric user ID that should own the dump files
+# - for GroupID: your numeric group ID that should own the dump files
 
 version: '2'
 
@@ -50,6 +55,43 @@ services:
 
         labels:
             io.rancher.container.pull_image: always
+
+    db-dump:
+        image: registry.spin.nersc.gov/pub/postgres-pg_dump:10-alpine
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - /global/project/projectdirs/m2690/corytest/:/pg_dump
+#        - /global/project/projectdirs/ProjectDir/path/to/dump/:/pg_dump
+
+        # further customize filenames and retention below as needed
+        environment:
+            POSTGRES_HOST: db
+            POSTGRES_USER: PostgresUser
+            POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+            POSTGRES_DUMP_DIR: /pg_dump
+            POSTGRES_DUMP_FILE_BASE: db-dump.sql.gz
+            POSTGRES_DUMP_RETAIN_DAYS: '7'
+            TZ: US/Pacific
+
+        secrets:
+            - mode: '0400'
+              uid: '68566'
+              gid: '68566'
+              source: db.postgres-root.postgres_password
+              target: postgres_password
+#              uid: 'UserID'
+#              gid: 'GroupID'
+
+#        user: UserID:GroupID
+        user: 68566:68566
+
+        labels:
+            io.rancher.container.start_once: 'true'
+            io.rancher.container.pull_image: always
+            cron.schedule: 0 0 11 * * *
 
 #
 # note: secrets and volumes must have been created manually
