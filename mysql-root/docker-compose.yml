@@ -41,6 +41,8 @@ services:
               target: mysql_password
 
         labels:
+
+            # prevent running stale (cached) image on restart or upgrade
             io.rancher.container.pull_image: always
 
 #

@@ -54,6 +54,8 @@ services:
         #    - shared_buffers=32MB
 
         labels:
+
+            # prevent running stale (cached) image on restart or upgrade
             io.rancher.container.pull_image: always
 
     db-dump:
@@ -85,9 +87,15 @@ services:
         user: UserID:GroupID
 
         labels:
-            io.rancher.container.start_once: 'true'
+
+            # prevent running stale (cached) image on restart or upgrade
             io.rancher.container.pull_image: always
+
+            # run at 11am (UTC)
             cron.schedule: 0 0 11 * * *
+
+            # override default behavior to restart container after backup process completes
+            io.rancher.container.start_once: 'true'
 
 #
 # note: secrets and volumes must have been created manually
