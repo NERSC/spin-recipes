@@ -19,5 +19,7 @@ Notes:
   Compose or `docker run`. The user & group must match.  Contrast this to the
   [httpd-rootless][1] image, which only needs a UserID & GroupID in the Docker
   Compose/`docker run`.
+* Includes modifications to obtain the client IP address from a reverse
+  proxy, as typically implemented in Spin.
 
 [1]: https://github.com/NERSC/spin-recipes/tree/master/httpd-rootless
