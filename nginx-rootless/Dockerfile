@@ -1,4 +1,4 @@
-# This image extends the official nginx image to run as an arbitrary UID/GID.
+# This image extends the official nginx image to run as an arbitrary UID/GID which will have access to files on NERSC Global Filesytem
 
 # See the README.md for usage.
 
@@ -12,6 +12,7 @@ LABEL \
 RUN chgrp nginx /var/cache/nginx/
 RUN chmod g+w /var/cache/nginx/
 
+# Use sed to modify the Nginx configuration file
 # Run as port 8080 (unprivileged) instead of port 80 (privileged), which will
 # allow non-root users to use this image, and improve security by allowing us
 # to drop the 'cap_net_bind_service' capability.
@@ -20,4 +21,3 @@ EXPOSE 8080
 
 # Write the PID file to a location where regular users have write access. Not Standards compliant.
 RUN sed -i.bak -e 's%^pid        /var/run/nginx.pid;%pid        /var/tmp/nginx.pid;%' /etc/nginx/nginx.conf
-
