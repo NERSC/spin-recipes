@@ -12,6 +12,7 @@ LABEL \
 RUN chgrp nginx /var/cache/nginx/
 RUN chmod g+w /var/cache/nginx/
 
+# Use 'sed' with % as the seperator to modify configuration files
 # Run as port 8080 (unprivileged) instead of port 80 (privileged), which will
 # allow non-root users to use this image, and improve security by allowing us
 # to drop the 'cap_net_bind_service' capability.
