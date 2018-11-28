@@ -1,5 +1,4 @@
-# nginx-rootless
-
+# nginx-rootless 
 The `nginx-rootless` container extends the stock Nginx image to run as
 an arbitrary UID/GID.
 
@@ -21,9 +20,15 @@ Or, run this image as root by not using the `--user` & `--group_add`. Currently,
 
 Or, run with the Docker Compose equivalent (see the accompanying `docker-compose.yml` file).
 
-Note that `--group-add` is required, and enables the user to write the PID file
-to `/usr/local/apache2/logs/`. Docker Compose v2 is required. Docker Compose v3
-does not support `--group-add`, nor [does it have an equivalent][2]. 
+Notes:
+* `--group-add` is required, and enables the user to write the PID
+  file to `/usr/local/apache2/logs/`. Docker Compose v2 is required.  Docker
+  Compose v3 does not support `--group-add`, nor [does it have an
+  equivalent][2]. 
+* If you look at the running container, you will see that ports 80 &
+  8080 are both `EXPOSE`d bu Docker. That is because the parent image already
+  has a statement that says `EXPOSE 80`, while here in the child image we add
+  `EXPOSE 8080`. However, nothing is actually listening on port 80.
 
 [1]: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
 [2]: https://github.com/docker/compose/issues/3328#issuecomment-296813818

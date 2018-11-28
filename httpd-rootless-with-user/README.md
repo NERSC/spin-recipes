@@ -19,5 +19,9 @@ Notes:
   Compose or `docker run`. The user & group must match.  Contrast this to the
   [httpd-rootless][1] image, which only needs a UserID & GroupID in the Docker
   Compose/`docker run`.
+* If you look at the running container, you will see that ports 80 &
+  8080 are both `EXPOSE`d bu Docker. That is because the parent image already
+  has a statement that says `EXPOSE 80`, while here in the child image we add
+  `EXPOSE 8080`. However, nothing is actually listening on port 80.
 
 [1]: https://github.com/NERSC/spin-recipes/tree/master/httpd-rootless
