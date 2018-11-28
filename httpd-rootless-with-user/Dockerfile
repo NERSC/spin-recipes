@@ -33,7 +33,9 @@ RUN useradd --no-log-init $USERNAME --uid $UID --groups www-data
 # `www-data` to write to this directory.
 RUN chmod g+w /usr/local/apache2/logs
 
-# Use 'sed' with % as the seperator to modify configuration files
+# Use 'sed' with # as the separator to modify configuration files.
+# sed borrowed from https://github.com/docker-library/httpd/blob/master/2.4/Dockerfile
+
 # Run as port 8080 (unprivileged) instead of port 80 (privileged), which will
 # allow non-root users to use this image, and improve security by allowing us
 # to drop the 'cap_net_bind_service' capability.
