@@ -52,4 +52,5 @@ RUN sed -i.bak \
   $HTTPD_PREFIX/conf/httpd.conf && \
   cat /tmp/httpd.conf-append >> $HTTPD_PREFIX/conf/httpd.conf && \
   rm -f /tmp/httpd.conf-append
+
 EXPOSE 8080
