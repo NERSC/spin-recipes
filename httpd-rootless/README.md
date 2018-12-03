@@ -37,6 +37,10 @@ Notes:
   v3 does not support `--group-add`, nor [does it have an equivalent][2]. 
 * Includes modifications to obtain the client IP address from a reverse
   proxy, as typically implemented in Spin.
+* If you look at the running container, you will see that ports 80 &
+  8080 are both `EXPOSE`d bu Docker. That is because the parent image already
+  has a statement that says `EXPOSE 80`, while here in the child image we add
+  `EXPOSE 8080`. However, nothing is actually listening on port 80.
 
 [1]: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
 [2]: https://github.com/docker/compose/issues/3328#issuecomment-296813818

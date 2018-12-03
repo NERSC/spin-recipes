@@ -1,4 +1,5 @@
-# This image extends the official httpd image to run as an arbitrary UID/GID.
+# This image extends the official httpd image to
+# run as an arbitrary UID/GID.
 
 # See the README.md for usage
 
@@ -11,6 +12,9 @@ LABEL \
 # httpd writes it's PID file to /usr/local/apache2/log. Allow the group
 # `www-data` to write to this directory.
 RUN chmod g+w /usr/local/apache2/logs
+
+# Use 'sed' with # as the separator to modify configuration files.
+# sed borrowed from https://github.com/docker-library/httpd/blob/master/2.4/Dockerfile
 
 # Run as port 8080 (unprivileged) instead of port 80 (privileged), which will
 # allow non-root users to use this image, and improve security by allowing us
@@ -29,4 +33,5 @@ RUN sed -i.bak \
   $HTTPD_PREFIX/conf/httpd.conf && \
   cat /tmp/httpd.conf-append >> $HTTPD_PREFIX/conf/httpd.conf && \
   rm -f /tmp/httpd.conf-append
+
 EXPOSE 8080
