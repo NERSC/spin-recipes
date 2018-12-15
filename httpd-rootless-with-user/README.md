@@ -6,6 +6,9 @@ run as an actual user account.
 To use this image first add a user account, and an optional group, to the image.
 Be sure that `www-data` is added as a supplementary group.
 
+Also included is a `rancher-compose.yml` file that adds a basic health check that
+will create a new container if httpd becomes unresponsive.
+
 Run this image this using `docker container run`, like:
 
     docker container run -p 80:8080 --cap-drop=all --user YourUsername:YourGroup --group-add www-data ... httpd-rootless-with-user

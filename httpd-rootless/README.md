@@ -18,6 +18,9 @@ Cons:
     unintuitive, as is the additional `group_add` line in the Docker Compose
     file.
 
+Also included is a `rancher-compose.yml` file that adds a basic health check that
+will create a new container if httpd becomes unresponsive.
+
 Run this image this using `docker container run`, like:
 
     docker container run -p 80:8080 --cap-drop=all --user SOMEUID:SOMEGID --group-add www-data ... httpd-rootless
