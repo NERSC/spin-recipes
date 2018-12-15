@@ -10,6 +10,9 @@ Advantages over the stock image include:
   * Avoids the need for [`RUN groupadd ... && useradd ...`][1], which would
     result in every single user building their own custom container instead.
 
+Also included is a `rancher-compose.yml` file that adds a basic health check that
+will create a new container if nginx becomes unresponsive.
+
 Run this image this using `docker container run`, like:
 
     docker container run -p 80:8080 --cap-drop=all --user SOMEUID:SOMEGID --group-add nginx nginx-rootless
