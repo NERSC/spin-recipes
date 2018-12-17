@@ -28,6 +28,8 @@ Notes:
   file to `/usr/local/apache2/logs/`. Docker Compose v2 is required.  Docker
   Compose v3 does not support `--group-add`, nor [does it have an
   equivalent][2]. 
+* Includes modifications to obtain the client IP address from a reverse
+  proxy, as typically implemented in Spin.
 * If you look at the running container, you will see that ports 80 &
   8080 are both `EXPOSE`d bu Docker. That is because the parent image already
   has a statement that says `EXPOSE 80`, while here in the child image we add
