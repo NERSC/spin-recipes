@@ -13,18 +13,16 @@ LABEL \
 # `www-data` to write to this directory.
 RUN chmod g+w /usr/local/apache2/logs
 
-# Use 'sed' with # as the separator to modify configuration files.
+# Modify provided configuration files to help ensure upstream changes are not lost
+#
 # sed borrowed from https://github.com/docker-library/httpd/blob/master/2.4/Dockerfile
-
+#
 # Run as port 8080 (unprivileged) instead of port 80 (privileged), which will
 # allow non-root users to use this image, and improve security by allowing us
 # to drop the 'cap_net_bind_service' capability.
 #
-# Activate mod_remoteip to obtain the client IP address from headers passed
-# by the Spin reverse proxy, adjust log formats accordingly, and add basic
-# directives.
-#
-# sed borrowed from https://github.com/docker-library/httpd/blob/master/2.4/Dockerfile
+# Activate and configure mod_remoteip to obtain the client IP address from headers passed
+# by the Spin reverse proxy and adjust log formats accordingly.
 ADD httpd.conf-append /tmp/
 RUN sed -i.bak \
   -e 's/^Listen 80*$/Listen 8080/' \
