@@ -37,7 +37,7 @@ services:
             - mode: '0444'
               uid: '0'
               gid: '0'
-              source: db.mysql-recipe.mysql_password
+              source: db.mysql-root.mysql_password
               target: mysql_password
 
         labels:
@@ -50,10 +50,10 @@ services:
 #
 
 secrets:
-    db.mysql-recipe.mysql_password:
+    db.mysql-root.mysql_password:
         external: true
 
 volumes:
-    db.mysql-recipe:
+    db.mysql-root:
         driver: rancher-nfs
         external: true
