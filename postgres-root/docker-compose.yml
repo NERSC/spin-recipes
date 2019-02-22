@@ -77,6 +77,9 @@ services:
             POSTGRES_DUMP_RETAIN_DAYS: '7'
             TZ: US/Pacific
 
+        cap_drop:
+            - ALL
+
         secrets:
             - mode: '0400'
               uid: 'UserID'
