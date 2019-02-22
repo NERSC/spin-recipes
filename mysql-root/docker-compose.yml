@@ -1,6 +1,11 @@
 #
-# substitute your stack name for mysql-root throughout
+# to use this template, substitute the following throughout:
 #
+# - for mysql-root: your stack name
+# - for MySQLUser: your Postgres user name
+# - for ProjectDir: your global file system project directory
+# - for UserID: your numeric user ID that should own the dump files
+# - for GroupID: your numeric group ID that should own the dump files
 
 version: '2'
 
@@ -44,6 +49,45 @@ services:
 
             # prevent running stale (cached) image on restart or upgrade
             io.rancher.container.pull_image: always
+
+    db-dump:
+        image: registry.spin.nersc.gov/pub/mysql-mysqldump:5
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - /global/project/projectdirs/ProjectDir/path/to/dump/:/mysqldump
+
+        # further customize filenames and retention below as needed
+        environment:
+            MYSQL_HOST: db
+            MYSQL_USER: MySQLUser
+            MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+            MYSQL_DUMP_DIR: /mysqldump
+            MYSQL_DUMP_FILE_BASE: db-dump.sql.gz
+            MYSQL_DUMP_RETAIN_DAYS: '7'
+            TZ: US/Pacific
+
+        secrets:
+            - mode: '0400'
+              uid: 'UserID'
+              gid: 'GroupID'
+              source: db.mysql-root.mysql_password
+              target: mysql_password
+
+        user: UserID:GroupID
+
+        labels:
+
+            # prevent running stale (cached) image on restart or upgrade
+            io.rancher.container.pull_image: always
+
+            # run at 11am (UTC)
+            cron.schedule: 0 0 11 * * *
+
+            # override default behavior to restart container after backup process completes
+            io.rancher.container.start_once: 'true'
 
 #
 # note: secrets and volumes must have been created manually
