@@ -6,7 +6,7 @@ version: '2'
 
 services:
     db:
-        image: mysql:5.7
+        image: mysql:5
 
         # uncomment only if access outside of Spin is needed
         #ports:
