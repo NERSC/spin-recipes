@@ -67,7 +67,7 @@ services:
         volumes:
         - /global/project/projectdirs/ProjectDir/path/to/dump/:/pg_dump
 
-        # further customize filenames and retention below as needed
+        # further customize filenames and retention (-1 for indefinite) below as needed
         environment:
             POSTGRES_HOST: db
             POSTGRES_USER: PostgresUser
