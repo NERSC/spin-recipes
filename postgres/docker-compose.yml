@@ -23,7 +23,6 @@ services:
         volumes:
             - db.Postgres:/var/lib/postgresql/data
 
-        # substitute the account name to be used to access the database below
         environment:
             POSTGRES_USER: PostgresUser
             POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
