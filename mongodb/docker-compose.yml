@@ -1,0 +1,110 @@
+#
+# to use this template, substitute the following throughout:
+#
+# - for MongoDB: your stack name
+# - for MongoDBName: your MongoDB database name
+# - for MongoDBUser: your MongoDB user name
+# - for ProjectDir: your global file system project directory
+# - for UserID: your numeric user ID that should own the dump files
+# - for GroupID: your numeric group ID that should own the dump files
+
+version: '2'
+services:
+    db:
+
+        # version 3 is also available
+        image: mongo:4
+        #image: mongo:3
+
+        # uncomment only if access outside of Spin is needed
+        #ports:
+        #- 27017:27017/tcp
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - db.MongoDB:/data/db
+
+        environment:
+            MONGO_INITDB_DATABASE: MongoDBName
+            MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_password
+            MONGO_INITDB_ROOT_USERNAME: MongoDBUser
+            TZ: US/Pacific
+
+        cap_drop:
+        - ALL
+        cap_add:
+        - CHOWN
+        - SETGID
+        - SETUID
+
+        secrets:
+        - mode: '0400'
+          uid: '999'
+          gid: '999'
+          source: db.MongoDB.mongo_password
+          target: mongo_password
+
+        labels:
+
+          # prevent running stale (cached) image on restart or upgrade
+          io.rancher.container.pull_image: always
+
+    db-dump:
+
+        # version 3 is also available
+        image: registry.spin.nersc.gov/pub/mongo-mongodump:4
+        #image: registry.spin.nersc.gov/pub/mongo-mongodump:3
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - /global/project/projectdirs/ProjectDir/path/to/dump/:/mongodump
+
+        # further customize filenames and retention (-1 for indefinite) below as needed
+        environment:
+            MONGODB_HOST: db
+            MONGODB_USER: MongoDBUser
+            MONGODB_PASSWORD_FILE: /run/secrets/mongo_password
+            MONGODB_DUMP_DIR: /mongodump
+            MONGODB_DUMP_FILE_BASE: db-dump.archive.gz
+            MONGODB_DUMP_RETAIN_DAYS: '7'
+            TZ: US/Pacific
+
+        cap_drop:
+            - ALL
+
+        secrets:
+            - mode: '0400'
+              uid: 'UserID'
+              gid: 'GroupID'
+              source: db.MongoDB.mongo_password
+              target: mongo_password
+
+        user: UserID:GroupID
+
+        labels:
+
+            # prevent running stale (cached) image on restart or upgrade
+            io.rancher.container.pull_image: always
+
+            # run at 11am (UTC)
+            cron.schedule: 0 0 11 * * *
+
+            # override default behavior to restart container after backup process completes
+            io.rancher.container.start_once: 'true'
+
+#
+# note: secrets and volumes must have been created manually
+#
+
+secrets:
+    db.MongoDB.mongo_password:
+        external: true
+
+volumes:
+    db.MongoDB:
+        external: true
+        driver: rancher-nfs
