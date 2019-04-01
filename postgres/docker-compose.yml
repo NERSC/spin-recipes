@@ -26,6 +26,7 @@ services:
         environment:
             POSTGRES_USER: PostgresUser
             POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+            TZ: US/Pacific
 
         cap_drop:
             - ALL

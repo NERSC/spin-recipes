@@ -27,6 +27,7 @@ services:
             MYSQL_USER: MySQLUser
             MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
             MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+            TZ: US/Pacific
 
         cap_drop:
             - ALL
