@@ -1,7 +1,7 @@
 #
 # to use this template, substitute the following throughout:
 #
-# - for postgres-root: your stack name
+# - for Postgres: your stack name
 # - for PostgresUser: your Postgres user name
 # - for ProjectDir: your global file system project directory
 # - for UserID: your numeric user ID that should own the dump files
@@ -21,7 +21,7 @@ services:
         tty: true
 
         volumes:
-            - db.postgres-root:/var/lib/postgresql/data
+            - db.Postgres:/var/lib/postgresql/data
 
         # substitute the account name to be used to access the database below
         environment:
@@ -41,7 +41,7 @@ services:
             - mode: '0444'
               uid: '0'
               gid: '0'
-              source: db.postgres-root.postgres_password
+              source: db.Postgres.postgres_password
               target: postgres_password
 
         # uncomment to set configuration options as needed
@@ -84,7 +84,7 @@ services:
             - mode: '0400'
               uid: 'UserID'
               gid: 'GroupID'
-              source: db.postgres-root.postgres_password
+              source: db.Postgres.postgres_password
               target: postgres_password
 
         user: UserID:GroupID
@@ -105,10 +105,10 @@ services:
 #
 
 secrets:
-    db.postgres-root.postgres_password:
+    db.Postgres.postgres_password:
         external: true
 
 volumes:
-    db.postgres-root:
+    db.Postgres:
         driver: rancher-nfs
         external: true

@@ -1,4 +1,4 @@
-# mysql-root
+# mysql
 
 This recipe shows a working example of MySQL on Spin using the official managed image
 with an automated backup routine.

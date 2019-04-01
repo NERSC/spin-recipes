@@ -1,4 +1,4 @@
-# postgres-root
+# postgres
 
 This recipe shows a working example of Postgres on Spin using the official managed image
 with an automated backup routine.

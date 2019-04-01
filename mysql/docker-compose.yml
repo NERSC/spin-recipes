@@ -1,7 +1,7 @@
 #
 # to use this template, substitute the following throughout:
 #
-# - for mysql-root: your stack name
+# - for MySQL: your stack name
 # - for MySQLUser: your Postgres user name
 # - for ProjectDir: your global file system project directory
 # - for UserID: your numeric user ID that should own the dump files
@@ -21,7 +21,7 @@ services:
         tty: true
 
         volumes:
-            - db.mysql-root:/var/lib/mysql
+            - db.MySQL:/var/lib/mysql
 
         # substitute the account name to be used to access the database below
         environment:
@@ -42,7 +42,7 @@ services:
             - mode: '0444'
               uid: '0'
               gid: '0'
-              source: db.mysql-root.mysql_password
+              source: db.MySQL.mysql_password
               target: mysql_password
 
         labels:
@@ -76,7 +76,7 @@ services:
             - mode: '0400'
               uid: 'UserID'
               gid: 'GroupID'
-              source: db.mysql-root.mysql_password
+              source: db.MySQL.mysql_password
               target: mysql_password
 
         user: UserID:GroupID
@@ -97,10 +97,10 @@ services:
 #
 
 secrets:
-    db.mysql-root.mysql_password:
+    db.MySQL.mysql_password:
         external: true
 
 volumes:
-    db.mysql-root:
+    db.MySQL:
         driver: rancher-nfs
         external: true
