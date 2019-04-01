@@ -2,7 +2,7 @@
 # to use this template, substitute the following throughout:
 #
 # - for MySQL: your stack name
-# - for MySQLUser: your Postgres user name
+# - for MySQLUser: your MySQL user name
 # - for ProjectDir: your global file system project directory
 # - for UserID: your numeric user ID that should own the dump files
 # - for GroupID: your numeric group ID that should own the dump files
