@@ -63,11 +63,13 @@ services:
         volumes:
         - /global/project/projectdirs/ProjectDir/path/to/dump/:/mongodump
 
-        # further customize filenames and retention (-1 for indefinite) below as needed
+        # further customize filenames, retention (-1 for indefinite), and other
+        # settings as needed
         environment:
             MONGODB_HOST: db
             MONGODB_USER: MongoDBUser
             MONGODB_PASSWORD_FILE: /run/secrets/mongo_password
+            MONGODB_DATABASE: all
             MONGODB_DUMP_DIR: /mongodump
             MONGODB_DUMP_FILE_BASE: db-dump.archive.gz
             MONGODB_DUMP_RETAIN_DAYS: '7'
