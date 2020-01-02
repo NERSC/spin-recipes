@@ -12,9 +12,9 @@ version: '2'
 services:
     db:
 
-        # version 8 is also available
-        image: mysql:5
-        #image: mysql:8
+        # version 5 is also available
+        image: mysql:8
+        #image: mysql:5
 
         # uncomment only if access outside of Spin is needed
         #ports:
@@ -54,7 +54,10 @@ services:
             io.rancher.container.pull_image: always
 
     db-dump:
-        image: registry.spin.nersc.gov/pub/mysql-mysqldump:5
+
+        # version 5 is also available
+        image: registry.spin.nersc.gov/pub/mysql-mysqldump:8
+        #image: registry.spin.nersc.gov/pub/mysql-mysqldump:5
 
         stdin_open: true
         tty: true
