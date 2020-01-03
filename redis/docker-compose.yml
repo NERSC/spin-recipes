@@ -1,0 +1,94 @@
+#
+# to use this template, substitute the following throughout:
+#
+# - for Redis: your stack name
+# - for ProjectDir: your global file system project directory
+# - for UserID: your numeric user ID that should own the dump files
+# - for GroupID: your numeric group ID that should own the dump files
+
+version: '2'
+services:
+    kv:
+
+        # versions 6.0-rc and 4 are also available
+        image: redis:5-alpine
+        #image: redis:6.0-rc-alpine
+        #image: redis:4-alpine
+
+        # uncomment only if access outside of Spin is needed
+        #
+        # WARNING: the default configuration is UNSECURED; do not
+        # uncomment these lines without a custom configuration that
+        # sets up protected mode and requires authentication!
+        #ports:
+        #- 6379:6379/tcp
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - kv.Redis:/data
+
+        environment:
+            TZ: US/Pacific
+
+        cap_drop:
+        - ALL
+        cap_add:
+        - CHOWN
+        - SETGID
+        - SETUID
+
+        labels:
+
+          # prevent running stale (cached) image on restart or upgrade
+          io.rancher.container.pull_image: always
+
+    kv-dump:
+
+        # versions 6.0-rc and 4 are also available
+        image: registry.spin.nersc.gov/pub/redis-cli-bgsave:5-alpine
+        #image: registry.spin.nersc.gov/pub/redis-cli-bgsave:6.0-rc-alpine
+        #image: registry.spin.nersc.gov/pub/redis-cli-bgsave:4-alpine
+
+        stdin_open: true
+        tty: true
+
+        volumes:
+        - /global/project/projectdirs/ProjectDir/path/to/dump/:/cli-bgsave
+        - kv.Redis:/data:ro
+
+        # further customize filenames, retention (-1 for indefinite), and other
+        # settings as needed
+        environment:
+            REDIS_HOST: kv
+            REDIS_DUMP_DIR: /cli-bgsave
+            REDIS_DUMP_FILE_BASE: kv-dump.rdb
+            REDIS_DUMP_RETAIN_DAYS: '7'
+            REDIS_DUMP_WAIT: 30
+            TZ: US/Pacific
+
+        cap_drop:
+        - ALL
+
+        user: UserID:GroupID
+
+        labels:
+
+            # prevent running stale (cached) image on restart or upgrade
+            io.rancher.container.pull_image: always
+
+            # run at 11am (UTC)
+            cron.schedule: 0 0 11 * * *
+
+            # override default behavior to restart container after backup process completes
+            io.rancher.container.start_once: 'true'
+
+#
+# note: volume must have been created manually
+#
+
+volumes:
+    kv.Redis:
+        external: true
+        driver: rancher-nfs
