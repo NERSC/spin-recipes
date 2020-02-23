@@ -11,7 +11,8 @@ LABEL \
 
 # httpd writes it's PID file to /usr/local/apache2/log. Allow the group
 # `www-data` to write to this directory.
-RUN chmod g+w /usr/local/apache2/logs
+RUN chgrp www-data /usr/local/apache2/logs && \
+  chmod g+w /usr/local/apache2/logs
 
 # Modify provided configuration files to help ensure upstream changes are not lost
 #

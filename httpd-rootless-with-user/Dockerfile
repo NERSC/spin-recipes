@@ -30,7 +30,8 @@ RUN useradd --no-log-init $USERNAME --uid $UID --groups www-data
 
 # httpd writes it's PID file to /usr/local/apache2/log. Allow the group
 # `www-data` to write to this directory.
-RUN chmod g+w /usr/local/apache2/logs
+RUN chgrp www-data /usr/local/apache2/logs && \
+  chmod g+w /usr/local/apache2/logs
 
 # Use 'sed' with # as the separator to modify configuration files.
 # sed borrowed from https://github.com/docker-library/httpd/blob/master/2.4/Dockerfile
