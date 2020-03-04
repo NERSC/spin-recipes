@@ -1,6 +1,6 @@
 # Let's Encrypt
 
-This is an example using the Let's Encrypt helper image.  This image will handle obtaining the let's ecnrypt certificate, install it in an nginx proxy and may everything to a back end service.
+This is an example using the Let's Encrypt helper image.  This image will handle obtaining the let's encrypt certificate, install it in an nginx proxy and may everything to a back end service.
 
 ## Assumptions
 
