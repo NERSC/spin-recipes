@@ -9,7 +9,7 @@ This is an example using the Let's Encrypt helper image.  This image will handle
 
 ## Setup
 
-Make sure you have updated the DNS entry for your domain to point to the SNI contianer in spin.
+Make sure you have updated the DNS entry for your domain to point to the SNI container in spin.
 For example, `lb-sni.reverse-proxy.prod-cattle.stable.spin.nersc.org.` for the production spin service.
 
 ## Usage
@@ -40,7 +40,7 @@ services:
 ```
 
 The LE_ environment variables should correspond to the domain name that you have registered and your email.
-The PROXY should point to another container in your stack that is listening for unecrypted http traffic.  Just
+The PROXY should point to another container in your stack that is listening for unencrypted http traffic.  Just
 provide the container name and port.
 
 Bring up the stack using `rancher up -u -d`.  Once started, notify the Spin staff to create the mapping.  The mappings
