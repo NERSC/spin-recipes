@@ -2,7 +2,7 @@
 # to use this template, substitute the following throughout:
 #
 # - for MySQL: your stack name
-# - for MySQLDb: your MySQL database name
+# - for MySQLDatabase: your MySQL database name
 # - for MySQLUser: your MySQL user name
 # - for ProjectDir: your global file system project directory
 # - for UserID: your numeric user ID that should own the dump files
@@ -28,7 +28,7 @@ services:
             - db.MySQL:/var/lib/mysql
 
         environment:
-            MYSQL_DB: MySQLDb
+            MYSQL_DATABASE: MySQLDatabase
             MYSQL_USER: MySQLUser
             MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
             MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
