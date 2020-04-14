@@ -12,8 +12,10 @@ version: '2'
 services:
     db:
 
-        # versions 9.6 and 9 are also available
-        image: postgres:10-alpine
+        # versions 11, 10, 9.6 and 9 are also available
+        image: postgres:12-alpine
+        #image: postgres:11-alpine
+        #image: postgres:10-alpine
         #image: postgres:9.6-alpine
         #image: postgres:9-alpine
 
