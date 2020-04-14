@@ -8,6 +8,8 @@ RUN  \
 ADD . /src/
 WORKDIR /src/
 
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 ENTRYPOINT [ "/src/entrypoint.sh" ]
 
 CMD [ ]
