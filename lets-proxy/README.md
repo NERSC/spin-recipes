@@ -26,17 +26,24 @@ Add a stanza to your docker-compose like the following...
 version: '2'
 
 services:
-   web-lets:
-     image: registry.spin.nersc.gov/das/letsencrypt:latest
-     restart: always
-     volumes:
-       - web.mydomain-net:/etc/letsencrypt/
-     environment:
-       LE_DOMAIN: web.mydomain.net
-       LE_EMAIL: user@mydomain.net
-       PROXY: web-app:80
-     labels:
-       io.rancher.container.pull_image: always
+  web-lets:
+    image: registry.spin.nersc.gov/das/letsencrypt:latest
+    restart: always
+    volumes:
+    - web.mydomain-net:/etc/letsencrypt/
+    environment:
+      LE_DOMAIN: web.mydomain.net
+      LE_EMAIL: user@mydomain.net
+      PROXY: web-app:80
+    cap_add:
+    - NET_BIND_SERVICE
+    - SETGID
+    - SETUID
+    cap_drop:
+    - ALL
+
+    labels:
+      io.rancher.container.pull_image: always
 ```
 
 The LE_ environment variables should correspond to the domain name that you have registered and your email.
