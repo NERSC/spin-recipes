@@ -3,7 +3,6 @@ version: '2'
 services:
    web-lets:
      image: registry.spin.nersc.gov/das/letsencrypt:latest
-     restart: always
      volumes:
        - web.mydomain-net:/etc/letsencrypt/
      environment:
@@ -21,7 +20,6 @@ services:
 
    web-app:
      image: nginx
-     restart: always
      cap_drop:
      - ALL
      labels:
@@ -31,5 +29,3 @@ volumes:
     web.mydomain-net:
         driver: rancher-nfs
         external: true
-
-
