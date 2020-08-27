@@ -47,9 +47,9 @@ services:
     kv-dump:
 
         # versions 6.0-rc and 4 are also available
-        image: registry.spin.nersc.gov/pub/redis-cli-bgsave:5-alpine
-        #image: registry.spin.nersc.gov/pub/redis-cli-bgsave:6.0-rc-alpine
-        #image: registry.spin.nersc.gov/pub/redis-cli-bgsave:4-alpine
+        image: registry.nersc.gov/library/spin/redis-cli-bgsave:5-alpine
+        #image: registry.nersc.gov/library/spin/redis-cli-bgsave:6.0-rc-alpine
+        #image: registry.nersc.gov/library/spin/redis-cli-bgsave:4-alpine
 
         stdin_open: true
         tty: true

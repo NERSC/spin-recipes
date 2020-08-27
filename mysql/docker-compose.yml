@@ -58,8 +58,8 @@ services:
     db-dump:
 
         # version 5 is also available
-        image: registry.spin.nersc.gov/pub/mysql-mysqldump:8
-        #image: registry.spin.nersc.gov/pub/mysql-mysqldump:5
+        image: registry.nersc.gov/library/spin/mysql-mysqldump:8
+        #image: registry.nersc.gov/library/spin/mysql-mysqldump:5
 
         stdin_open: true
         tty: true

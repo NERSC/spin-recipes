@@ -67,11 +67,11 @@ services:
     db-dump:
 
         # versions 11, 10, 9.6 and 9 are also available
-        image: registry.spin.nersc.gov/pub/postgres-pg_dump:12-alpine
-        #image: registry.spin.nersc.gov/pub/postgres-pg_dump:11-alpine
-        #image: registry.spin.nersc.gov/pub/postgres-pg_dump:10-alpine
-        #image: registry.spin.nersc.gov/pub/postgres-pg_dump:9.6-alpine
-        #image: registry.spin.nersc.gov/pub/postgres-pg_dump:9-alpine
+        image: registry.nersc.gov/library/spin/postgres-pg_dump:12-alpine
+        #image: registry.nersc.gov/library/spin/postgres-pg_dump:11-alpine
+        #image: registry.nersc.gov/library/spin/postgres-pg_dump:10-alpine
+        #image: registry.nersc.gov/library/spin/postgres-pg_dump:9.6-alpine
+        #image: registry.nersc.gov/library/spin/postgres-pg_dump:9-alpine
 
         stdin_open: true
         tty: true

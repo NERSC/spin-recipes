@@ -54,8 +54,8 @@ services:
     db-dump:
 
         # version 3 is also available
-        image: registry.spin.nersc.gov/pub/mongo-mongodump:4
-        #image: registry.spin.nersc.gov/pub/mongo-mongodump:3
+        image: registry.nersc.gov/library/spin/mongo-mongodump:4
+        #image: registry.nersc.gov/library/spin/mongo-mongodump:3
 
         stdin_open: true
         tty: true
