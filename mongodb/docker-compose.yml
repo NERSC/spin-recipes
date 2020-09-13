@@ -4,7 +4,7 @@
 # - for MongoDB: your stack name
 # - for MongoDBName: your MongoDB database name
 # - for MongoDBUser: your MongoDB user name
-# - for ProjectDir: your global file system project directory
+# - for ProjectDir: your community file system project directory
 # - for UserID: your numeric user ID that should own the dump files
 # - for GroupID: your numeric group ID that should own the dump files
 
@@ -61,7 +61,7 @@ services:
         tty: true
 
         volumes:
-        - /global/project/projectdirs/ProjectDir/path/to/dump/:/mongodump
+        - /global/cfs/cdirs/ProjectDir/path/to/dump/:/mongodump
 
         # further customize filenames, retention (-1 for indefinite), and other
         # settings as needed

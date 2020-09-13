@@ -4,7 +4,7 @@
 # - for MySQL: your stack name
 # - for MySQLDatabase: your MySQL database name
 # - for MySQLUser: your MySQL user name
-# - for ProjectDir: your global file system project directory
+# - for ProjectDir: your community file system project directory
 # - for UserID: your numeric user ID that should own the dump files
 # - for GroupID: your numeric group ID that should own the dump files
 
@@ -65,7 +65,7 @@ services:
         tty: true
 
         volumes:
-        - /global/project/projectdirs/ProjectDir/path/to/dump/:/mysqldump
+        - /global/cfs/cdirs/ProjectDir/path/to/dump/:/mysqldump
 
         # further customize filenames, retention (-1 for indefinite), and other
         # settings as needed
