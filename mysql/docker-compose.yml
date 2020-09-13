@@ -31,7 +31,7 @@ services:
             MYSQL_DATABASE: MySQLDatabase
             MYSQL_USER: MySQLUser
             MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
-            MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
             TZ: US/Pacific
 
         cap_drop:
@@ -44,11 +44,16 @@ services:
             - SETUID
 
         secrets:
-            - mode: '0444'
+            - mode: '0400'
               uid: '0'
               gid: '0'
               source: db.MySQL.mysql_password
               target: mysql_password
+            - mode: '0400'
+              uid: '0'
+              gid: '0'
+              source: db.MySQL.mysql_root_password
+              target: mysql_root_password
 
         labels:
 
@@ -71,8 +76,8 @@ services:
         # settings as needed
         environment:
             MYSQL_HOST: db
-            MYSQL_USER: MySQLUser
-            MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+            MYSQL_USER: root
+            MYSQL_PASSWORD_FILE: /run/secrets/mysql_root_password
             MYSQL_DATABASES: all
             MYSQL_DUMP_DIR: /mysqldump
             MYSQL_DUMP_FILE_BASE: db-dump.sql.gz
@@ -86,8 +91,8 @@ services:
             - mode: '0400'
               uid: 'UserID'
               gid: 'GroupID'
-              source: db.MySQL.mysql_password
-              target: mysql_password
+              source: db.MySQL.mysql_root_password
+              target: mysql_root_password
 
         user: UserID:GroupID
 
@@ -108,6 +113,8 @@ services:
 
 secrets:
     db.MySQL.mysql_password:
+        external: true
+    db.MySQL.mysql_root_password:
         external: true
 
 volumes:
