@@ -12,8 +12,9 @@ version: '2'
 services:
     db:
 
-        # versions 11, 10, 9.6 and 9 are also available
-        image: postgres:12-alpine
+        # versions 12, 11, 10, 9.6 and 9 are also available
+        image: postgres:13-alpine
+        #image: postgres:12-alpine
         #image: postgres:11-alpine
         #image: postgres:10-alpine
         #image: postgres:9.6-alpine
@@ -66,8 +67,9 @@ services:
 
     db-dump:
 
-        # versions 11, 10, 9.6 and 9 are also available
-        image: registry.nersc.gov/library/spin/postgres-pg_dump:12-alpine
+        # versions 12, 11, 10, 9.6 and 9 are also available
+        image: registry.nersc.gov/library/spin/postgres-pg_dump:13-alpine
+        #image: registry.nersc.gov/library/spin/postgres-pg_dump:12-alpine
         #image: registry.nersc.gov/library/spin/postgres-pg_dump:11-alpine
         #image: registry.nersc.gov/library/spin/postgres-pg_dump:10-alpine
         #image: registry.nersc.gov/library/spin/postgres-pg_dump:9.6-alpine
